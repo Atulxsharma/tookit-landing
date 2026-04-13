@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: #F0FDF4;
+  --surface: #FFFFFF;
+  --surface-soft: #F7FEF9;
+  --surface-tint: #ECFDF3;
+  --border: #D1FAE5;
+  --border-strong: #BBF7D0;
+  --text: #14532D;
+  --text-muted: #15803D;
+  --text-soft: #4B5563;
+  --primary: #16A34A;
+  --accent: #4ADE80;
+  --deep: #14532D;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'SF Pro Rounded', 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont, Inter, system-ui, sans-serif;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(74, 222, 128, 0.3);
+}
