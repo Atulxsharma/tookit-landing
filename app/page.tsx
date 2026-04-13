@@ -1,295 +1,228 @@
-import type { ReactNode } from 'react';
-import { Hero } from '@/components/Hero';
+import { BrandLogo } from '@/components/BrandLogo';
+import { HeroSection } from '@/components/HeroSection';
+import { PhoneShowcase } from '@/components/PhoneMockup';
+import { Reveal } from '@/components/Reveal';
 import { WaitlistForm } from '@/components/WaitlistForm';
-import { CheckIcon, HeartIcon, LockIcon, ShieldIcon } from '@/components/icons';
 
-function Logo({ className = '' }: { className?: string }) {
+const painPoints = [
+  {
+    label: 'Caregivers',
+    labelClasses: 'border-[#16A34A3A] bg-[#0D2010] text-[#4ADE80]',
+    title: 'The daily call',
+    body: "You call every morning. 'Did you take it?' She says yes. You're never really sure. You were never sure."
+  },
+  {
+    label: 'ADHD & brain fog',
+    labelClasses: 'border-[#A78BFA3A] bg-[#1A1230] text-[#A78BFA]',
+    title: 'Did I take it or just think about it?',
+    body: "You walked to the bathroom. You opened the bottle. But did you actually swallow it? Twenty minutes of spiral later — still not sure."
+  },
+  {
+    label: 'Chronic illness',
+    labelClasses: 'border-[#F59E0B3A] bg-[#1F1500] text-[#F59E0B]',
+    title: 'The 3pm panic',
+    body: "You took your meds at 8am. It's 3pm now. You genuinely can't remember. Do you take another? Skip it? Call your doctor?"
+  }
+];
+
+const pricing = [
+  {
+    name: 'Solo',
+    price: '$6.99',
+    annual: '$39.99/year',
+    savings: 'save 52%',
+    featured: false,
+    features: [
+      'Track your own medications',
+      'Back-edit past doses',
+      'Full dose history',
+      'Medication archive'
+    ]
+  },
+  {
+    name: 'Family',
+    price: '$14.99',
+    annual: '$99.99/year',
+    savings: 'save 44%',
+    featured: true,
+    features: [
+      'Everything in Solo',
+      'Up to 5 family members',
+      'Caregivers see doses in real-time',
+      'No more daily check-in calls',
+      'Per-person medication schedules'
+    ]
+  }
+];
+
+const trustItems = [
+  {
+    title: 'Private by design.',
+    body: 'Your medication data never leaves your account. No ads, no data selling, ever.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]">
+        <rect x="5" y="10" width="14" height="10" rx="3" />
+        <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+      </svg>
+    )
+  },
+  {
+    title: 'Built to last.',
+    body: 'Enterprise-grade infrastructure. Your history is safe across all your devices.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]">
+        <path d="m12 3 7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3Z" />
+        <path d="m9.5 12 1.8 1.8 3.7-4.3" />
+      </svg>
+    )
+  },
+  {
+    title: 'Made from experience.',
+    body: 'Built by someone who knows what it feels like to stare at a pill bottle and not remember.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]">
+        <path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.65-7 10-7 10Z" />
+      </svg>
+    )
+  }
+];
+
+function FeatureList({ items }: { items: string[] }) {
   return (
-    <div className={`font-sans text-[20px] font-bold tracking-[-0.04em] ${className}`}>
-      <span className="text-[var(--deep)]">took</span>
-      <span className="text-[var(--primary)]">it</span>
-    </div>
+    <ul className="space-y-[10px]">
+      {items.map((item) => (
+        <li key={item} className="flex gap-[10px] text-[14px] text-[#A1A1AA]">
+          <span className="text-[14px] text-[#4ADE80]">✓</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
-
-function LabelPill({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-flex w-fit rounded-full border border-[var(--border)] bg-[var(--surface-tint)] px-3 py-1 text-[12px] text-[var(--text-muted)]">
-      {children}
-    </span>
-  );
-}
-
-function PhoneShell({ children }: { children: ReactNode }) {
-  return (
-    <div className="mx-auto w-full max-w-[280px] rounded-[32px] border border-[var(--border)] bg-[#E7FBEF] p-3 shadow-[0_16px_50px_rgba(20,83,45,0.08)]">
-      <div className="relative aspect-[9/19.5] overflow-hidden rounded-[24px] border border-[var(--border)] bg-[var(--surface)] px-4 pb-5 pt-6">
-        <div className="absolute left-1/2 top-2 h-5 w-24 -translate-x-1/2 rounded-full bg-[var(--deep)]" />
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function PhoneRow({
-  dotColor,
-  title,
-  subtitle
-}: {
-  dotColor: string;
-  title: string;
-  subtitle: string;
-}) {
-  return (
-    <div className="flex items-start gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-3">
-      <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ backgroundColor: dotColor }} />
-      <div>
-        <p className="text-[14px] font-medium text-[var(--deep)]">{title}</p>
-        <p className="mt-1 text-[12px]" style={{ color: subtitle.includes('✓') ? '#16A34A' : '#86A18D' }}>
-          {subtitle}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function FamilyRow({
-  initial,
-  avatarColor,
-  title,
-  subtitle,
-  subtitleColor
-}: {
-  initial: string;
-  avatarColor: string;
-  title: string;
-  subtitle: string;
-  subtitleColor: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-soft)] px-3 py-3">
-      <div
-        className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold text-white"
-        style={{ backgroundColor: avatarColor }}
-      >
-        {initial}
-      </div>
-      <div>
-        <p className="text-[14px] font-medium text-[var(--deep)]">{title}</p>
-        <p className="mt-1 text-[12px]" style={{ color: subtitleColor }}>
-          {subtitle}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-const featureItems = {
-  solo: [
-    'Track your own medications',
-    'Back-edit past doses',
-    'Full dose history',
-    'Medication archive'
-  ],
-  family: [
-    'Everything in Solo',
-    'Up to 5 family members',
-    'Caregivers see doses in real-time',
-    'No more daily check-in calls',
-    'Per-person medication schedules'
-  ]
-};
 
 export default function Page() {
   return (
-    <main className="bg-[var(--bg)] text-[var(--deep)]">
-      <section className="bg-[var(--primary)] px-4 py-2 text-center text-[14px] text-white">
-        Tookit is launching soon — join the waitlist for free early access
-      </section>
+    <main className="bg-[#0A0A0A] text-white">
+      <div className="sticky top-0 z-50 flex h-10 items-center justify-center bg-[#16A34A] px-4 text-center text-[13px] font-medium text-white">
+        Tookit launches soon — join the waitlist for 30 days free
+      </div>
 
-      <section className="px-6 pb-16 pt-8 sm:pb-20 sm:pt-10">
-        <Hero />
-      </section>
+      <HeroSection />
 
-      <section className="px-6 py-10 sm:py-16">
+      <PhoneShowcase />
+
+      <section className="px-6 pb-20">
         <div className="mx-auto max-w-[960px]">
-          <h2 className="text-center text-[28px] font-semibold text-[var(--deep)]">Sound familiar?</h2>
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {[
-              {
-                label: 'Caregivers',
-                title: 'The daily call',
-                body: "You call every morning. 'Did you take it?' She says yes. You're still not sure. You were never sure."
-              },
-              {
-                label: 'ADHD & brain fog',
-                title: 'Did I take it or just think about it?',
-                body: 'You walked to the bathroom. You opened the bottle. But did you actually take it? Now it\'s been 20 minutes and you\'re still not sure.'
-              },
-              {
-                label: 'Chronic illness',
-                title: 'The 3pm panic',
-                body: 'You took your meds at 8am. It\'s 3pm now. You genuinely cannot remember. Do you take another? Do you skip? Do you call your doctor?'
-              }
-            ].map((card) => (
-              <article
-                key={card.title}
-                className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-[0_12px_40px_rgba(20,83,45,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[var(--border-strong)]"
-              >
-                <LabelPill>{card.label}</LabelPill>
-                <h3 className="mt-3 text-[20px] font-semibold text-[var(--deep)]">{card.title}</h3>
-                <p className="mt-3 text-[15px] leading-[1.6] text-[var(--text-soft)]">{card.body}</p>
-              </article>
+          <div className="text-center">
+            <h2 className="text-[28px] font-bold tracking-[-0.5px] text-white">Sound familiar?</h2>
+            <p className="mt-2 text-[16px] text-[#A1A1AA]">These moments happen every day.</p>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {painPoints.map((item, index) => (
+              <Reveal key={item.title} delay={index * 100}>
+                <article className="rounded-[20px] border border-[#1C1C1C] bg-[#111111] p-7 transition hover:border-[#2A2A2A]">
+                  <span
+                    className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-medium ${item.labelClasses}`}
+                  >
+                    {item.label}
+                  </span>
+                  <h3 className="mt-[14px] text-[18px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-2 text-[14px] leading-[1.6] text-[#777777]">{item.body}</p>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-10 sm:py-16">
-        <div className="mx-auto max-w-[1100px]">
-          <h2 className="text-center text-[28px] font-semibold text-[var(--deep)]">One tap. You know.</h2>
-          <p className="mt-3 text-center text-[16px] text-[var(--text-soft)]">
-            No more guessing. No more calling. No more panic.
-          </p>
-
-          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-            <PhoneShell>
-              <div className="pt-6">
-                <h3 className="text-[17px] font-bold text-[var(--deep)]">Today</h3>
-                <div className="mt-5 space-y-3">
-                  <PhoneRow dotColor="#16A34A" title="Metformin 500mg" subtitle="took it ✓ 8:02am" />
-                  <PhoneRow dotColor="#D1FAE5" title="Lisinopril 10mg" subtitle="due 1:00pm" />
-                  <PhoneRow dotColor="#D1FAE5" title="Vitamin D" subtitle="tonight" />
-                </div>
-              </div>
-            </PhoneShell>
-
-            <PhoneShell>
-              <div className="pt-6">
-                <h3 className="text-[17px] font-bold text-[var(--deep)]">Family</h3>
-                <div className="mt-5 space-y-3">
-                  <FamilyRow initial="M" avatarColor="#16A34A" title="Mom — 3 meds" subtitle="all done ✓" subtitleColor="#16A34A" />
-                  <FamilyRow initial="D" avatarColor="#F59E0B" title="Dad — 5 meds" subtitle="2 remaining" subtitleColor="#D97706" />
-                  <FamilyRow initial="Y" avatarColor="#4ADE80" title="You — 2 meds" subtitle="done ✓" subtitleColor="#16A34A" />
-                </div>
-              </div>
-            </PhoneShell>
-
-            <PhoneShell>
-              <div className="flex h-full flex-col items-center justify-center pt-4 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ECFDF3] text-[var(--primary)]">
-                  <CheckIcon className="h-12 w-12" />
-                </div>
-                <p className="mt-6 text-[28px] font-bold text-[var(--primary)]">took it</p>
-                <p className="mt-2 text-[17px] text-[var(--deep)]">Metformin 500mg</p>
-                <p className="mt-2 text-[13px] text-[#86A18D]">logged 8:02am · Jan 14</p>
-                <p className="mt-6 text-[13px] text-[var(--text-muted)]">Your family can see this</p>
-              </div>
-            </PhoneShell>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#EAFBF0] px-6 py-16">
+      <section className="bg-[#0D0D0D] px-6 py-20">
         <div className="mx-auto max-w-[640px]">
-          <h2 className="text-center text-[28px] font-semibold text-[var(--deep)]">Simple pricing. No surprises.</h2>
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <article className="rounded-3xl border border-[var(--border)] bg-white p-7 shadow-[0_12px_40px_rgba(20,83,45,0.04)]">
-              <p className="text-[13px] uppercase tracking-[0.1em] text-[var(--text-muted)]">Solo</p>
-              <div className="mt-4 flex items-end gap-2">
-                <span className="text-[40px] font-bold leading-none text-[var(--deep)]">$6.99</span>
-                <span className="pb-1 text-[16px] text-[var(--text-soft)]">/month</span>
-              </div>
-              <p className="mt-3 text-[14px] text-[var(--primary)]">$39.99/year — saves 52%</p>
-              <ul className="mt-6 space-y-3 text-[13px] text-[var(--text-soft)]">
-                {featureItems.solo.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="text-[var(--primary)]">✓</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-
-            <article className="relative rounded-3xl border-2 border-[var(--primary)] bg-white p-7 shadow-[0_18px_50px_rgba(22,163,74,0.10)]">
-              <span className="absolute right-4 top-4 rounded-full bg-[var(--primary)] px-2.5 py-1 text-[11px] font-medium text-white">
-                Most popular
-              </span>
-              <p className="text-[13px] uppercase tracking-[0.1em] text-[var(--text-muted)]">Family</p>
-              <div className="mt-4 flex items-end gap-2">
-                <span className="text-[40px] font-bold leading-none text-[var(--deep)]">$14.99</span>
-                <span className="pb-1 text-[16px] text-[var(--text-soft)]">/month</span>
-              </div>
-              <p className="mt-3 text-[14px] text-[var(--primary)]">$99.99/year — saves 44%</p>
-              <ul className="mt-6 space-y-3 text-[13px] text-[var(--text-soft)]">
-                {featureItems.family.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="text-[var(--primary)]">✓</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+          <div className="text-center">
+            <h2 className="text-[32px] font-bold tracking-[-0.5px] text-white">Simple pricing.</h2>
+            <p className="mt-3 text-[16px] text-[#A1A1AA]">Less than a coffee a month. Cancel anytime.</p>
           </div>
-          <p className="mt-6 text-center text-[14px] text-[#86A18D]">
-            30-day free trial at launch · Cancel anytime · No credit card at signup
+
+          <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {pricing.map((plan) => (
+              <div
+                key={plan.name}
+                className={`relative rounded-[20px] bg-[#111111] p-7 ${
+                  plan.featured ? 'border-2 border-[#16A34A]' : 'border border-[#1C1C1C]'
+                }`}
+              >
+                {plan.featured ? (
+                  <span className="absolute right-0 top-0 rounded-bl-[12px] rounded-tr-[18px] bg-[#16A34A] px-3 py-1 text-[11px] font-semibold text-white">
+                    Most popular
+                  </span>
+                ) : null}
+
+                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#A1A1AA]">
+                  {plan.name}
+                </p>
+                <div className="mt-4 flex items-end gap-2">
+                  <span className="text-[42px] font-bold leading-none tracking-[-1px] text-white">
+                    {plan.price}
+                  </span>
+                  <span className="pb-[5px] text-[16px] text-[#555555]">/month</span>
+                </div>
+                <div className="mt-1 flex flex-wrap items-center gap-2">
+                  <span className="text-[13px] text-[#4ADE80]">{plan.annual}</span>
+                  <span className="rounded-full bg-[#0D2010] px-2 py-0.5 text-[11px] text-[#4ADE80]">
+                    {plan.savings}
+                  </span>
+                </div>
+                <div className="my-5 h-px bg-[#1C1C1C]" />
+                <FeatureList items={plan.features} />
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-5 text-center text-[13px] text-[#444444]">
+            30-day free trial at launch · No credit card at signup · Cancel anytime
           </p>
         </div>
       </section>
 
-      <section className="px-6 py-12">
-        <div className="mx-auto grid max-w-[720px] grid-cols-1 gap-6 md:grid-cols-3">
-          {[
-            {
-              icon: <LockIcon className="h-7 w-7 text-[var(--primary)]" />,
-              title: 'Private by design',
-              body: "Your medication data never leaves your account. We don't sell it, share it, or use it for ads."
-            },
-            {
-              icon: <ShieldIcon className="h-7 w-7 text-[var(--primary)]" />,
-              title: 'Built to last',
-              body: 'Enterprise-grade Supabase infrastructure. Your history is safe even if you switch devices.'
-            },
-            {
-              icon: <HeartIcon className="h-7 w-7 text-[var(--primary)]" />,
-              title: 'Made from experience',
-              body: 'Built by someone who knows what it feels like to stare at a pill bottle and not remember.'
-            }
-          ].map((item) => (
-            <div key={item.title} className="text-center md:text-left">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--border)] bg-white md:mx-0">
-                {item.icon}
+      <section className="px-6 pb-20 pt-20">
+        <div className="mx-auto grid max-w-[720px] grid-cols-1 gap-10 md:grid-cols-3 md:gap-4">
+          {trustItems.map((item, index) => (
+            <Reveal key={item.title} delay={index * 100}>
+              <div className="px-4 text-center">
+                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border border-[#1C1C1C] bg-[#111111] text-[#4ADE80]">
+                  {item.icon}
+                </div>
+                <h3 className="mt-3 text-[15px] font-semibold text-white">{item.title}</h3>
+                <p className="mt-[6px] text-[13px] leading-[1.6] text-[#555555]">{item.body}</p>
               </div>
-              <h3 className="text-[16px] font-bold text-[var(--deep)]">{item.title}</h3>
-              <p className="mt-2 text-[14px] leading-[1.6] text-[var(--text-soft)]">{item.body}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-[var(--border)] bg-[#EAFBF0] px-6 py-16">
+      <section className="border-t border-[#1A2A1A] bg-[#0D2010] px-6 py-20">
         <div className="mx-auto max-w-[480px] text-center">
-          <h2 className="text-[32px] font-bold tracking-[-0.03em] text-[var(--deep)]">Be first when we launch.</h2>
-          <p className="mt-3 text-[16px] text-[var(--text-soft)]">
-            Early access members get 30 days free. No card required.
-          </p>
-          <WaitlistForm className="mt-8" />
+          <h2 className="text-[32px] font-bold tracking-[-0.5px] text-white">Be the first to know.</h2>
+          <p className="mt-3 text-[16px] text-[#A1A1AA]">Early access members get 30 days free.</p>
+          <WaitlistForm className="mx-auto mt-8" />
         </div>
       </section>
 
-      <footer className="border-t border-[var(--border)] bg-[var(--bg)] px-6 py-8">
-        <div className="mx-auto flex max-w-[1120px] flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Logo />
-          <div className="flex items-center gap-5 text-[14px] text-[#86A18D]">
-            <a href="/privacy" className="transition hover:text-[var(--text-muted)]">
-              Privacy Policy
-            </a>
-            <a href="mailto:support@usetookit.com" className="transition hover:text-[var(--text-muted)]">
-              Support
-            </a>
+      <footer className="border-t border-[#161616] bg-[#0A0A0A] px-6 py-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <BrandLogo size="sm" />
+            <div className="flex items-center gap-5 text-[13px] text-[#444444]">
+              <a href="/privacy" className="transition hover:text-[#777777]">
+                Privacy Policy
+              </a>
+              <a href="mailto:support@usetookit.com" className="transition hover:text-[#777777]">
+                Support
+              </a>
+            </div>
           </div>
+          <p className="mt-5 text-center text-[12px] text-[#333333]">© 2026 Tookit. All rights reserved.</p>
         </div>
-        <p className="mt-6 text-center text-[12px] text-[#9CA3AF]">© 2026 Tookit. All rights reserved.</p>
       </footer>
     </main>
   );

@@ -1,77 +1,66 @@
-import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import { getWaitlistCount, insertWaitlistEntry, type Segment } from '@/lib/supabase';
 
-type Segment = 'solo' | 'family' | 'caregiver';
+export const dynamic = 'force-dynamic';
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function isSegment(value: string): value is Segment {
+  return value === 'solo' || value === 'family' || value === 'caregiver';
+}
+
+export async function GET() {
+  const result = await getWaitlistCount();
+
+  return NextResponse.json(result, {
+    headers: {
+      'Cache-Control': 'no-store'
+    }
+  });
+}
+
 export async function POST(request: Request) {
   try {
-    const { email, segment } = (await request.json()) as {
+    const payload = (await request.json()) as {
       email?: string;
-      segment?: Segment;
+      segment?: string;
     };
+
+    const email = payload.email?.trim().toLowerCase() ?? '';
+    const segment = payload.segment ?? '';
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json({ error: 'Enter a valid email address.' }, { status: 400 });
     }
 
-    if (!segment || !['solo', 'family', 'caregiver'].includes(segment)) {
-      return NextResponse.json({ error: 'Choose who Tookit is for.' }, { status: 400 });
+    if (!isSegment(segment)) {
+      return NextResponse.json({ error: 'Please select one.', code: 'segment_required' }, { status: 400 });
     }
 
-    const tallyFormId = process.env.TALLY_FORM_ID;
-    const tallyWebhookUrl = process.env.TALLY_WEBHOOK_URL;
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseServiceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const result = await insertWaitlistEntry(email, segment);
 
-    if (tallyWebhookUrl || tallyFormId) {
-      const targetUrl =
-        tallyWebhookUrl ?? `https://tally.so/forms/${tallyFormId}/submissions`;
-
-      const tallyResponse = await fetch(targetUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, segment })
-      });
-
-      if (!tallyResponse.ok) {
-        const text = await tallyResponse.text();
-        return NextResponse.json(
-          { error: `Tally submission failed: ${text || 'Unknown error.'}` },
-          { status: 500 }
-        );
-      }
-
-      return NextResponse.json({ ok: true, provider: 'tally' });
+    if (result.ok) {
+      return NextResponse.json({ ok: true });
     }
 
-    if (!supabaseUrl || !supabaseServiceRole) {
-      return NextResponse.json(
-        {
-          error:
-            'Missing backend configuration. Add Tally or Supabase environment variables before deploying.'
-        },
-        { status: 500 }
-      );
-    }
+    const status = result.code === 'duplicate' ? 409 : result.code === 'config' ? 503 : 500;
 
-    const supabase = createClient(supabaseUrl, supabaseServiceRole, {
-      auth: { persistSession: false, autoRefreshToken: false }
-    });
-
-    const { error } = await supabase.from('waitlist').insert({ email, segment });
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ ok: true, provider: 'supabase' });
+    return NextResponse.json(
+      {
+        error: result.message,
+        code: result.code
+      },
+      { status }
+    );
   } catch {
-    return NextResponse.json({ error: 'Unable to submit right now.' }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: 'Something went wrong. Try again.',
+        code: 'unknown'
+      },
+      { status: 500 }
+    );
   }
 }

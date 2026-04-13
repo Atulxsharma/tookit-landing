@@ -1,33 +1,46 @@
-import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import type { ReactNode } from 'react';
 import './globals.css';
 
+const title = 'Tookit — Know they took it. Without asking.';
+const description =
+  'The medication tracker for caregivers and families. See when doses are taken — without the daily call. Join the waitlist.';
+
 export const metadata: Metadata = {
-  title: 'Tookit — Know they took it. Without asking.',
-  description:
-    'The medication tracker that tells caregivers and families when doses are taken. No more daily calls. No more guessing. Join the waitlist.',
-  metadataBase: new URL('https://usetookit.com'),
+  metadataBase: new URL('https://tookit-landing.vercel.app'),
+  title,
+  description,
+  alternates: {
+    canonical: 'https://tookit-landing.vercel.app'
+  },
   openGraph: {
-    title: 'Tookit — Know they took it. Without asking.',
-    description:
-      'The medication tracker that tells caregivers and families when doses are taken. No more daily calls. No more guessing. Join the waitlist.',
-    images: ['/og.png'],
+    title,
+    description,
+    url: 'https://tookit-landing.vercel.app',
+    siteName: 'Tookit',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Tookit — Know they took it. Without asking.'
+      }
+    ],
     type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tookit — Know they took it. Without asking.',
-    description:
-      'The medication tracker that tells caregivers and families when doses are taken. No more daily calls. No more guessing. Join the waitlist.',
-    images: ['/og.png']
+    title,
+    description,
+    images: ['/og-image.png']
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-[var(--bg)] text-[var(--text-primary)] antialiased">
         <Script id="gtag-stub" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
