@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tookit-landing.vercel.app'
   },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' }
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png'
+  },
   openGraph: {
     title,
     description,
