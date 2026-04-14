@@ -68,17 +68,17 @@ export function HeroSection() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="mx-auto w-full max-w-[560px] px-6 pb-10 pt-12">
-        <div className="flex items-start justify-start">
+      <section className="mx-auto w-full max-w-[760px] px-6 pb-8 pt-10 sm:pt-12 lg:pb-10 lg:pt-14">
+        <div className="mx-auto flex w-full max-w-[760px] items-start justify-start">
           <BrandLogo />
         </div>
 
-        <div className="mt-8 flex flex-col items-center pb-8">
+        <div className="mt-9 flex flex-col items-center">
           <m.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
-            className="inline-flex items-center gap-2 rounded-full border border-[#2A2A2A] bg-[#161616] px-5 py-2"
+            className="inline-flex items-center gap-2 rounded-full border border-[#262626] bg-[#141414] px-5 py-[9px]"
           >
             <span className="pulse-dot h-2 w-2 rounded-full bg-[#4ADE80]" />
             <p className="text-[13px] text-[#A1A1AA]">
@@ -90,7 +90,7 @@ export function HeroSection() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-            className="mt-6 max-w-[500px] text-center text-[clamp(28px,7vw,48px)] font-bold leading-[1.08] tracking-[-0.5px] text-white"
+            className="mt-7 max-w-[690px] text-center text-[clamp(32px,6.2vw,58px)] font-bold leading-[1.03] tracking-[-0.5px] text-white"
           >
             The worst part isn&apos;t forgetting.
             <br />
@@ -101,7 +101,7 @@ export function HeroSection() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
-            className="mt-3 max-w-[440px] text-center text-[16px] leading-[1.55] text-[#A1A1AA]"
+            className="mt-5 max-w-[520px] text-center text-[16px] leading-[1.65] text-[#A1A1AA] sm:text-[17px]"
           >
             Tookit shows caregivers and families when doses were taken — without the daily
             call, without the guilt, without the guessing.
@@ -111,7 +111,7 @@ export function HeroSection() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
-            className="mt-6 w-full"
+            className="mt-8 w-full"
           >
             <WaitlistForm className="mx-auto" />
           </m.div>

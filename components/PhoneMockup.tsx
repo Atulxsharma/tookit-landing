@@ -24,7 +24,7 @@ function IosStatusBar() {
 
 function PhoneFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto w-full max-w-[320px] rounded-[32px] border border-[#1C1C1C] bg-[#111111] p-4 shadow-[0_20px_80px_rgba(0,0,0,0.38)]">
+    <div className="relative mx-auto w-full max-w-[315px] rounded-[32px] border border-[#1C1C1C] bg-[#111111] p-4 shadow-[0_20px_80px_rgba(0,0,0,0.38)]">
       <div className="absolute left-1/2 top-2 z-10 h-5 w-[60px] -translate-x-1/2 rounded-full bg-[#050505]" />
       <div className="aspect-[9/19.5] overflow-hidden rounded-[24px] bg-[#F0FDF4]">
         {children}
@@ -374,7 +374,7 @@ export function PhoneShowcase() {
   }, []);
 
   return (
-    <section className="px-6 py-20">
+    <section className="px-6 pb-20 pt-10 sm:pt-12 lg:pt-14">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-[560px] text-center">
           <h2 className="text-[28px] font-bold tracking-[-0.5px] text-white">One tap. You know.</h2>
@@ -385,7 +385,7 @@ export function PhoneShowcase() {
 
         <div
           ref={containerRef}
-          className="hide-scrollbar mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible"
+          className="hide-scrollbar mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible"
         >
           {slides.map((slide, index) => (
             <Reveal

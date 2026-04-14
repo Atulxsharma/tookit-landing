@@ -111,24 +111,24 @@ export default function Page() {
 
       <PhoneShowcase />
 
-      <section className="px-6 pb-20">
+      <section className="px-6 pb-24">
         <div className="mx-auto max-w-[960px]">
           <div className="text-center">
             <h2 className="text-[28px] font-bold tracking-[-0.5px] text-white">Sound familiar?</h2>
             <p className="mt-2 text-[16px] text-[#A1A1AA]">These moments happen every day.</p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
             {painPoints.map((item, index) => (
               <Reveal key={item.title} delay={index * 100}>
-                <article className="rounded-[20px] border border-[#1C1C1C] bg-[#111111] p-7 transition hover:border-[#2A2A2A]">
+                <article className="min-h-[250px] rounded-[20px] border border-[#1C1C1C] bg-[#111111] p-8 transition hover:border-[#2A2A2A]">
                   <span
                     className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-medium ${item.labelClasses}`}
                   >
                     {item.label}
                   </span>
-                  <h3 className="mt-[14px] text-[18px] font-semibold text-white">{item.title}</h3>
-                  <p className="mt-2 text-[14px] leading-[1.6] text-[#777777]">{item.body}</p>
+                  <h3 className="mt-5 text-[18px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-[14px] leading-[1.7] text-[#777777]">{item.body}</p>
                 </article>
               </Reveal>
             ))}
@@ -136,18 +136,18 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-[#0D0D0D] px-6 py-20">
+      <section className="bg-[#0D0D0D] px-6 py-24">
         <div className="mx-auto max-w-[640px]">
           <div className="text-center">
             <h2 className="text-[32px] font-bold tracking-[-0.5px] text-white">Simple pricing.</h2>
             <p className="mt-3 text-[16px] text-[#A1A1AA]">Less than a coffee a month. Cancel anytime.</p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
             {pricing.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative rounded-[20px] bg-[#111111] p-7 ${
+                className={`relative rounded-[20px] bg-[#111111] p-8 ${
                   plan.featured ? 'border-2 border-[#16A34A]' : 'border border-[#1C1C1C]'
                 }`}
               >
@@ -184,8 +184,8 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="px-6 pb-20 pt-20">
-        <div className="mx-auto grid max-w-[720px] grid-cols-1 gap-10 md:grid-cols-3 md:gap-4">
+      <section className="px-6 pb-24 pt-24">
+        <div className="mx-auto grid max-w-[780px] grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
           {trustItems.map((item, index) => (
             <Reveal key={item.title} delay={index * 100}>
               <div className="px-4 text-center">
@@ -200,7 +200,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="border-t border-[#1A2A1A] bg-[#0D2010] px-6 py-20">
+      <section className="border-t border-[#1A2A1A] bg-[#0D2010] px-6 py-24">
         <div className="mx-auto max-w-[480px] text-center">
           <h2 className="text-[32px] font-bold tracking-[-0.5px] text-white">Be the first to know.</h2>
           <p className="mt-3 text-[16px] text-[#A1A1AA]">Early access members get 30 days free.</p>

@@ -11,9 +11,9 @@ declare global {
 }
 
 const segments: { label: string; value: Segment }[] = [
-  { label: '👤 Just me', value: 'solo' },
-  { label: '👨‍👩‍👧 My family', value: 'family' },
-  { label: "🏥 I'm a caregiver", value: 'caregiver' }
+  { label: 'Just me', value: 'solo' },
+  { label: 'My family', value: 'family' },
+  { label: 'Caregiver', value: 'caregiver' }
 ];
 
 function isValidEmail(email: string) {
@@ -160,11 +160,11 @@ export function WaitlistForm({ className = '' }: { className?: string }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`w-full max-w-[440px] ${className}`}
+      className={`w-full max-w-[480px] ${className}`}
       noValidate
       aria-label="Join the Tookit waitlist"
     >
-      <div className="space-y-0">
+      <div>
         <div className={shakeEmail ? 'shake' : ''}>
           <input
             type="email"
@@ -182,7 +182,7 @@ export function WaitlistForm({ className = '' }: { className?: string }) {
                 window.__tookitFormStarted = true;
               }
             }}
-            className="h-[52px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#161616] px-4 text-[16px] text-white outline-none transition focus:border-[#16A34A] placeholder:text-[#444444]"
+            className="h-[56px] w-full rounded-[12px] border border-[#2A2A2A] bg-[#141414] px-[18px] text-[16px] text-white outline-none transition duration-200 placeholder:text-[#444444] focus:border-[#16A34A] focus:bg-[#171717]"
             aria-invalid={emailError ? 'true' : 'false'}
             aria-describedby={emailError ? 'waitlist-email-error' : undefined}
           />
@@ -193,7 +193,7 @@ export function WaitlistForm({ className = '' }: { className?: string }) {
           </p>
         ) : null}
 
-        <div className={`mt-[10px] flex flex-wrap gap-2 ${shakeSegment ? 'shake' : ''}`}>
+        <div className={`mt-3 grid grid-cols-3 gap-[10px] ${shakeSegment ? 'shake' : ''}`}>
           {segments.map((item) => {
             const selected = segment === item.value;
 
@@ -206,10 +206,10 @@ export function WaitlistForm({ className = '' }: { className?: string }) {
                   setSegmentError(null);
                   track('waitlist_segment_selected', item.value);
                 }}
-                className={`h-[40px] min-w-[100px] flex-1 rounded-[8px] border px-3 text-[13px] transition ${
+                className={`h-[44px] rounded-[10px] border px-2 text-[13px] transition duration-150 ${
                   selected
-                    ? 'border-[#16A34A] bg-[#0D1F0D] font-medium text-[#4ADE80]'
-                    : 'border-[#2A2A2A] bg-[#161616] text-[#A1A1AA]'
+                    ? 'border-[#16A34A] bg-[#0D1F0D] font-semibold text-[#4ADE80]'
+                    : 'border-[#262626] bg-[#141414] text-[#A1A1AA] hover:border-[#3A3A3A] hover:text-white'
                 }`}
                 aria-pressed={selected}
               >
@@ -224,12 +224,12 @@ export function WaitlistForm({ className = '' }: { className?: string }) {
         <button
           type="submit"
           disabled={submitting}
-          className="mt-[10px] flex h-[52px] w-full items-center justify-center rounded-[12px] bg-[#16A34A] text-[16px] font-semibold tracking-[-0.2px] text-white transition hover:bg-[#15803D] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-90"
+          className="mt-4 flex h-[56px] w-full items-center justify-center rounded-[12px] bg-[#16A34A] text-[16px] font-semibold tracking-[-0.2px] text-white shadow-[0_10px_28px_rgba(22,163,74,0.22)] transition duration-150 hover:bg-[#15803D] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-90"
         >
           {submitting ? <Spinner /> : 'Save my spot — free early access →'}
         </button>
 
-        <p className="mt-2 text-center text-[12px] text-[#444444]">
+        <p className="mt-3 text-center text-[12px] text-[#555555]">
           No credit card. No spam. Cancel anytime.
         </p>
 
