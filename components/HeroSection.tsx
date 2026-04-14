@@ -55,7 +55,7 @@ export function HeroSection() {
   }, []);
 
   useEffect(() => {
-    const controls = animate(0, targetCount, {
+    const controls = animate(count, targetCount, {
       duration: 1.5,
       ease: 'easeOut',
       onUpdate(value) {
@@ -64,16 +64,18 @@ export function HeroSection() {
     });
 
     return () => controls.stop();
+    // Intentionally keyed to targetCount so the displayed social proof never dips to 0 on first paint.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetCount]);
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="mx-auto w-full max-w-[760px] px-6 pb-8 pt-10 sm:pt-12 lg:pb-10 lg:pt-14">
+      <section className="mx-auto w-full max-w-[760px] px-6 pb-6 pt-10 sm:pt-12 lg:pb-0 lg:pt-10">
         <div className="mx-auto flex w-full max-w-[760px] items-start justify-start">
           <BrandLogo />
         </div>
 
-        <div className="mt-9 flex flex-col items-center">
+        <div className="mt-8 flex flex-col items-center lg:mt-7">
           <m.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
@@ -90,7 +92,7 @@ export function HeroSection() {
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-            className="mt-7 max-w-[690px] text-center text-[clamp(32px,6.2vw,58px)] font-bold leading-[1.03] tracking-[-0.5px] text-white"
+            className="mt-7 max-w-[690px] text-center text-[clamp(32px,6.2vw,52px)] font-bold leading-[1.03] tracking-[-0.5px] text-white"
           >
             The worst part isn&apos;t forgetting.
             <br />

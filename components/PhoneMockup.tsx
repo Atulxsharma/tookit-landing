@@ -374,7 +374,7 @@ export function PhoneShowcase() {
   }, []);
 
   return (
-    <section className="px-6 pb-20 pt-10 sm:pt-12 lg:pt-14">
+    <section className="px-6 pb-20 pt-10 sm:pt-12 lg:pt-6">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-[560px] text-center">
           <h2 className="text-[28px] font-bold tracking-[-0.5px] text-white">One tap. You know.</h2>
